@@ -6,3 +6,4 @@ for tens_digit in range(10):
         else:
             print("{:d}{:d}, ".format(tens_digit, units_digit), end="", flush=True)
     
+print()

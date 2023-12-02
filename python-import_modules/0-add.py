@@ -4,6 +4,7 @@ def add(a, b):
 
 if __name__ == "__main__":
     a, b = 1, 2
-    print("{} + {} = {}".format(a, b, add(a, b)))
+    result_string = "{} + {} = {}".format(a, b, add(a, b))
+    print(result_string)
 
     # print(f"{a} + {b} = {(add(a,b))}")

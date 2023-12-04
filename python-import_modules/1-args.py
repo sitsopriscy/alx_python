@@ -15,3 +15,4 @@ def print_arguments():
 
 if __name__ == "__main__":
     print_arguments()
+    print("fatal error", file=sys.stderr)

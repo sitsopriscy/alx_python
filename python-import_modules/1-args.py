@@ -7,9 +7,9 @@ def print_arguments():
     # Print the number of arguments
     if num_arguments == 0:
         print("0 argument.")
-    #     print(".")
-    # elif num_arguments == 1:
-    #     print("1 argument:")
+        print("")
+    elif num_arguments == 1:
+        print("1 argument:")
     else:
         print("{} arguments:".format(num_arguments))
 

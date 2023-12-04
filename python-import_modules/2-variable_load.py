@@ -1,1 +1,3 @@
-a = 98
+a = ""
+if __name__ == "__main__":
+    print(a)

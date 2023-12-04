@@ -1,10 +1,8 @@
 import sys
 
 def print_arguments():
-    # Get the number of arguments
-    num_arguments = len(sys.argv) - 1  # Exclude the script name itself
+    num_arguments = len(sys.argv) - 1
 
-    # Print the number of arguments
     if num_arguments == 0:
         print("0 argument.")
         print("")
@@ -13,10 +11,9 @@ def print_arguments():
     else:
         print("{} arguments:".format(num_arguments))
 
-    # Print each argument and its position
     for i, arg in enumerate(sys.argv[1:], start=1):
         print("{}: {}".format(i, arg))
      
-        
+    print("[stderr]: [Anything]")   
 if __name__ == "__main__":
     print_arguments()

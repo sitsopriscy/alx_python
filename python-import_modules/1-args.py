@@ -1,11 +1,12 @@
 import sys
+from sys import argv
 
 def print_arguments():
-    num_arguments = len(sys.argv) - 1
+    num_arguments = len(argv) - 1
 
     if num_arguments == 0:
         print("0 argument.")
-        print("")
+        print(":")
     elif num_arguments == 1:
         print("1 argument:")
     else:

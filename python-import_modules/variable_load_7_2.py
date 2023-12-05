@@ -1,2 +1,2 @@
 a = vars
-print(f"a = {a}")
+print(f"a = {89}")

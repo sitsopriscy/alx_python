@@ -6,3 +6,6 @@ elif a == 89:
     print(f"a = {a}")
 else:
     print(f"a = {-100}")
+
+if __name__ == "__main__":
+        print(a)

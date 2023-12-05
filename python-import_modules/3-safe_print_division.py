@@ -10,4 +10,8 @@ def safe_print_division(a, b):
 
 # Example usage:
 result = safe_print_division(10, 2)
-print("{:d} / {:d} = {}".format(10, 2, result))
+# print("{:d} / {:d} = {}".format(10, 2, result))
+if result is not None:
+    print("{} / {} = {}".format(10, 2, result))
+else:
+    print("None")

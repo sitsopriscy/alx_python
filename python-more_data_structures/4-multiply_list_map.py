@@ -2,12 +2,17 @@
 
 #!/usr/bin/python3
 
-multiply_list_map = lambda my_list, number: list(map(lambda x: x * number, my_list))
 
-my_list = [1, 2, 3, 4, 6]
-print(multiply_list_map(my_list, 4))
-print(my_list)
+#!/usr/bin/python3
 
+# multiply_list_map = lambda my_list, number: list(map(lambda x: x * number, my_list))
+
+# my_list = [1, 2, 3, 4, 6]
+# print(multiply_list_map(my_list, 4))
+# print(my_list)
+
+def multiply_list_map(my_list=[], number=0):
+     return list(map(lambda x: x * number, my_list))
 
 
 

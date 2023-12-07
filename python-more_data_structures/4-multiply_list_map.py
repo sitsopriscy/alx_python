@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
-multiply_list_map = (lambda l, n: list(map(lambda x: x * n, l)))
+#!/usr/bin/python3
+
+multiply_list_map = lambda my_list, number: list(map(lambda x: x * number, my_list))
 
 my_list = [1, 2, 3, 4, 6]
 print(multiply_list_map(my_list, 4))

@@ -1,8 +1,7 @@
-"""
-    _This is a class Square that defines a square_
+"""_summary_
 
 Returns:
-    _'_Square__size'_: _3_
+    _type_: _description_
 """
 class Square:
     def __init__(self, size):
@@ -16,25 +15,28 @@ class Square:
 
     def area(self):
         return self.__size ** 2
-"""
-Example: 
-"""
 
-my_square = Square(3)
-print(type(my_square))
-print(my_square.__dict__)
 
-""" To get 'Square' object has no attribute 'size'
-"""
-try:
-    print(my_square.size)  
-except AttributeError as e:
-    print(e)
+# my_square = Square(3)
+# print(type(my_square))
+# print(my_square.__dict__)
 
-"""
-To get 'Square' object has no attribute '__size'
-"""
-try:
-    print(my_square.__size)  
-except AttributeError as e:
-    print(e)
+
+# """ To get 'Square' object has no attribute 'size'
+# """
+# try:
+#     print(my_square.size)  
+# except AttributeError as e:
+#     print(e)
+
+# '''
+# To get 'Square' object has no attribute '__size'
+# '''
+# try:
+#     print(my_square.__size)  
+# except AttributeError as e:
+#     print(e)
+
+# square1 = Square(5)
+# print("Size of square1:", square1.get_size())
+# print("Area of square1:", square1.area())

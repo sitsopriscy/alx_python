@@ -12,6 +12,8 @@ class Square:
         self.__size = size
 
     def area(self):
-        return self.__size ** 2
+        return self.__size
 
-my_square = Square(3); print(type(my_square)); print(my_square.__dict__)
+my_square = Square(3)
+print(type(my_square))
+print(my_square.__dict__)

@@ -8,11 +8,12 @@ class Square:
     Methods:
         __init__(self, size): Initializes a new Square instance with the given size.
     """
+    
     def __init__(self, size):
         self.__size = size
 
-    def area(self):
-        return self.__size
+    # def area(self):
+    #     return self.__size
     
 my_square = Square(3)
 print(type(my_square))

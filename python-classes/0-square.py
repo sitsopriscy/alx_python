@@ -17,6 +17,6 @@ class Square:
 
 # mysquare = Square(3) print(type(mysquare)) print(mysquare.dict_)
     
-my_square = Square(3)
-print(type(my_square))
-print(my_square.__dict__)
+mysquare = Square(3)
+print(type(mysquare))
+print(mysquare.__dict__)

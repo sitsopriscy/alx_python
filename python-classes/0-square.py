@@ -15,7 +15,7 @@ class Square:
     def square(self):
         return self.Square__size
     
-my_square = Square(3)
-print(type(my_square))
-print(my_square.__dict__)
-pass
+# my_square = Square(3)
+# print(type(my_square))
+# print(my_square.__dict__)
+

@@ -12,11 +12,11 @@ class Square:
     def __init__(self, size):
         self.__size = size
 
-    def square(self):
+    def get_size(self):
         return self.__size
 
 # mysquare = Square(3) print(type(mysquare)) print(mysquare.dict_)
     
-mysquare = Square(3)
-print(type(mysquare))
-print(mysquare.__dict__)
+my_square = Square(3)
+print(type(my_square))
+print(my_square.__dict__)

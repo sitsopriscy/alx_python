@@ -9,11 +9,11 @@ class Square:
         __init__(self, size): Initializes a new Square instance with the given size.
     """
     
-    def __init__(self, size):
-        self.__size = size
+    def __init__(self, _Square__size):
+        self.Square__size = _Square__size
 
     def square(self):
-        return self.__size
+        return self.Square__size
     
 my_square = Square(3)
 print(type(my_square))

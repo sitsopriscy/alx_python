@@ -61,7 +61,7 @@ class Square:
             TypeError: If size is not an integer.
             ValueError: If size is less than 0.
         """
-        size = int
+        size == int
         if size != int(size, int):
             raise TypeError("size must be an integer")
         elif size < 0:

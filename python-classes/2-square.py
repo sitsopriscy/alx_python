@@ -16,14 +16,13 @@ class Square:
         __size (int): Private instance attribute representing the size of the square.
     """
 
-    def __init__(self, size=0, area=" "):
+    def __init__(self, size=0):
         """Initializes a new instance of the Square class.
 
         Args:
             size (int): The size of the square.
         """
         self.__size = size
-        self.__area = area
 
         """
         Initializes a new Square instance.
@@ -47,5 +46,6 @@ class Square:
 # Public instance method: def area(self): that returns the current square area
  
     def __area(self):
-        return self.__size
+        return self.__size ** 2
+    
 

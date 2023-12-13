@@ -44,36 +44,17 @@ class Square:
 
         Parameters:
             size (int, optional): The size of the square. Default is 0.
-        """
-        self.size = size
-
-    @property
-    def size(self):
-        """
-        Getter method for the size attribute.
-
-        Returns:
-            int: The size of the square.
-        """
-        return self.__size
-
-    @size.setter
-    def size(self, value):
-        """
-        Setter method for the size attribute.
-
-        Parameters:
-            value (int): The new size for the square.
 
         Raises:
-            TypeError: If value is not an integer.
-            ValueError: If value is less than 0.
+            TypeError: If size is not an integer.
+            ValueError: If size is less than 0.
         """
-        if not isinstance(value, int):
+        size = int
+        if size != int(size, int):
             raise TypeError("size must be an integer")
-        elif value < 0:
+        elif size < 0:
             raise ValueError("size must be >= 0")
         else:
-            self.__size = value
+            self.__size = size
 
 

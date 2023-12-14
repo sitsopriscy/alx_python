@@ -14,7 +14,7 @@ class BaseGeometry:
     def area(self):
         """Raise an Exception with the message 'area() is not implemented'."""
         raise Exception('area() is not implemented')
-
+    
     def integer_validator(self, name, value):
         """Validate the value as an integer greater than 0."""
         if type(value) != int:
@@ -24,7 +24,7 @@ class BaseGeometry:
              
 
 
-# bg = BaseGeometry()
+bg = BaseGeometry()
 
 # bg.integer_validator("my_int", 12)
 # bg.integer_validator("width", 89)

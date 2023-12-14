@@ -2,4 +2,6 @@
 """
 
 class BaseGeometry:
+    """This is class defines class BaseGeometry.
+    """
     pass

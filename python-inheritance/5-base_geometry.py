@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """Public instance method: def integer_validator(self, name, value): 
     that validates value
 
@@ -8,7 +7,6 @@
         TypeError(if value is not an integer): _message <name> must be an integer_
         ValueError(if value is less or equal to 0): _message <name> must be greater than 0_
 """
-
 
 class BaseGeometry:
     """This is class defines class BaseGeometry.

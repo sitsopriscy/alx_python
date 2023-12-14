@@ -1,4 +1,5 @@
-"""This module is an empty class BaseGeometry.
+#!/usr/bin/python3
+""" This module is an empty class BaseGeometry.
 """
 
 class BaseGeometry:

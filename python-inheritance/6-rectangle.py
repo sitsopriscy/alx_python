@@ -55,3 +55,9 @@ try:
     r2 = Rectangle(4, True)
 except Exception as e:
     print("[{}] {}".format(e.__class__.__name__, e))
+    
+rectangle = Rectangle(width=5, height=10)
+attributes = dir(rectangle)
+has_width_attribute = '_Rectangle__width' in attributes
+
+print(has_width_attribute)

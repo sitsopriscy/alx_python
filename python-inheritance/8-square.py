@@ -20,7 +20,7 @@ class BaseGeometry:
             raise ValueError(f"{name} must be greater than 0")
 
 class Rectangle(BaseGeometry):
-    """This is a class Square that inherits from Rectangle.
+    """This is a class Rectangle that inherits from BaseGeometry.
     """
     def __init__(self, width, height):
         self.integer_validator("width", width)
@@ -38,6 +38,8 @@ class Rectangle(BaseGeometry):
         return f"Rectangle({self.__width}, {self.__height})"
 
 class Square(Rectangle):
+    """This is a class Square that inherits from Rectangle.
+    """
     def __init__(self, size):
         self.integer_validator("size", size)
         super().__init__(size, size)

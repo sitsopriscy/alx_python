@@ -95,10 +95,10 @@ class Rectangle(BaseGeometry):
         return f"Rectangle({self.__width}, {self.__height})"
 
 
-r = Rectangle(3, 5)
+# r = Rectangle(3, 5)
 
-print(r)
-print(dir(r))
+# print(r)
+# print(dir(r))
 
 # try:
 #     print("Rectangle: {} - {}".format(r.width, r.height))

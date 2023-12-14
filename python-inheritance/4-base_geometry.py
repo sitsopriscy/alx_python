@@ -13,10 +13,7 @@ class BaseGeometry:
         
         """Raise an Exception with the message 'area() is not implemented'."""
         raise Exception("area() is not implemented")
-class DerivedGeometry(BaseGeometry):
-    def derived_method(self):
-        pass
-    
+
 # bg = BaseGeometry()
 
 # try:

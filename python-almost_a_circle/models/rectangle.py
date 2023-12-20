@@ -61,6 +61,7 @@ class Rectangle(Base):
         """
         self.__validate_positive_int('width', value)
         self.__width = value
+        """ Setter for the width attribute with validation."""
 
     @property
     def height(self):
@@ -138,6 +139,8 @@ class Rectangle(Base):
         """
         if not isinstance(value, int) or value <= 0:
             raise ValueError(f"{attribute_name} must be a positive integer")
+    
+    """Validate that the given value is a positive integer."""
 
     def __validate_int(self, attribute_name, value):
         """

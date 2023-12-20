@@ -1,7 +1,16 @@
 # models/rectangle.py
 from base import Base
-
+""" imports class Base into the module """
 class Rectangle(Base):
+    """ 
+    defines class Rectangle as a subclass of class Base
+    
+    Attributes:
+    __width -> width
+    __height -> height
+    __x -> x
+    __y -> y
+    """
     def __init__(self, width, height, x=0, y=0, id=None):
         """
         Constructor for the Rectangle class.

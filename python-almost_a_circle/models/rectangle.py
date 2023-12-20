@@ -28,12 +28,17 @@ class Rectangle(Base):
         - __x (int): Private attribute for x-coordinate.
         - __y (int): Private attribute for y-coordinate.
         """
-        super().__init__(id)  
+        
         """Call the super class with id
         """ 
+        super().__init__(id)  
+        """__width (int): Private attribute for width."""
         self.width = width
+        """__height (int): Private attribute for height."""
         self.height = height
+        """"_x (int): Private attribute for x-coordinate."""
         self.x = x
+        """__y (int): Private attribute for y-coordinate."""
         self.y = y
 
     @property

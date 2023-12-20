@@ -28,7 +28,9 @@ class Rectangle(Base):
         - __x (int): Private attribute for x-coordinate.
         - __y (int): Private attribute for y-coordinate.
         """
-        super().__init__(id)  # Call the super class with id
+        super().__init__(id)  
+        """Call the super class with id
+        """ 
         self.width = width
         self.height = height
         self.x = x

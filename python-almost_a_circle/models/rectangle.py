@@ -1,4 +1,5 @@
 # models/rectangle.py
+
 """ This module contains the class Base """
 
 from models.base import Base 

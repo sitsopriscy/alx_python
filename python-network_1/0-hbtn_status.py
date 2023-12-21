@@ -19,7 +19,6 @@ def get_url_status(url):
         requests.exceptions.RequestException: If the request encounters an error.
     """
     
-    
     return response
 
 def display_response_info(response):

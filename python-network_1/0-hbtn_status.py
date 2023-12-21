@@ -22,14 +22,23 @@ def get_url_status(url):
     
     return response
 
-if __name__ == "__main__":
-    url = 'https://alu-intranet.hbtn.io/status'
+def display_response_info(response):
+    """
+    Displays information about the response in the specified format.
 
-    try:
-        response = get_url_status(url)
-        print("Body response:")
-        print(f"\t- type: {type(response.text)}")
-        print(f"\t- content: {response.text}")
-        print(f"({len(response.text)} chars long)")
-    except requests.exceptions.RequestException as e:
-        print(f"[stderr]: {e}")
+    Args:
+        response (requests.models.Response): The response object.
+    """
+    print("Body response:")
+    print("\t- type:", type(response.text))
+    print("\t- content:", response.text)
+
+if __name__ == "__main__":
+    # URL to fetch
+    url = "https://alu-intranet.hbtn.io/status"
+
+    # Fetching the URL status
+    response = get_url_status(url)
+
+    # Displaying information about the response
+    display_response_info(response)

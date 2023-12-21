@@ -18,3 +18,18 @@ def get_url_status(url):
     Raises:
         requests.exceptions.RequestException: If the request encounters an error.
     """
+    
+    
+    return response
+
+if __name__ == "__main__":
+    url = 'https://alu-intranet.hbtn.io/status'
+
+    try:
+        response = get_url_status(url)
+        print("Body response:")
+        print(f"\t- type: {type(response.text)}")
+        print(f"\t- content: {response.text}")
+        print(f"({len(response.text)} chars long)")
+    except requests.exceptions.RequestException as e:
+        print(f"[stderr]: {e}")

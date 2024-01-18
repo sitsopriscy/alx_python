@@ -8,6 +8,8 @@
 # The results must be displayed as they are in the example below
 # Your code should not be executed when imported
 
+"""Lists all State objects from the database hbtn_0e_6_usa
+"""
 
 import sys
 from sqlalchemy import create_engine

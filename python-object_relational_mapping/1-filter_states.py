@@ -7,41 +7,32 @@
 # Your code should not be executed when imported
 
 
-import MySQLdb
-from sys import argv
+if __name__ == "__main__":
+    from sys import argv
+    import MySQLdb
 
-
-def filter_states(username, password, database):
     # Connect to the MySQL server
     db = MySQLdb.connect(
-        host="localhost", port=3306, user=username, passwd=password, db=database
+        host="localhost", user=argv[1], passwd=argv[2], db=argv[3], port=3306
     )
 
     # Create a cursor object to interact with the database
     cursor = db.cursor()
 
-    # Executing the SQL query to fetch states starting with 'n' (case-insensitive)
-    query = "SELECT * FROM states WHERE LOWER(name) LIKE 'n%' ORDER BY id ASC"
-    cursor.execute(query)
+    # Execute the SQL query to retrieve states
+    cursor.execute(
+        "SELECT * FROM states\
+                    WHERE name LIKE 'N%' COLLATE utf8mb4_bin\
+                    ORDER BY states.id ASC"
+    )
 
-    # Fetch all the rows returned by the query
-    rows = cursor.fetchall()
+    # Fetch all the rows
+    states = cursor.fetchall()
 
     # Display the results
-    for row in rows:
-        print(row)
+    for state in states:
+        print(state)
 
-    # Close the cursor and the database connection
+    # Close the cursor and connection
     cursor.close()
     db.close()
-
-
-if __name__ == "__main__":
-    if len(argv) != 4:
-        print("Usage: {} <username> <password> <database>".format(argv[0]))
-        exit(1)
-
-    username, password, database = argv[1], argv[2], argv[3]
-
-    # Call the function to filter and display states
-    filter_states(username, password, database)

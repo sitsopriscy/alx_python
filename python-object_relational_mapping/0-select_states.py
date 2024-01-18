@@ -6,32 +6,28 @@
 # Results must be displayed as they are in the example below
 # Your code should not be executed when imported
 
+
+import MySQLdb
+from sys import argv
+
 if __name__ == "__main__":
-    from sys import argv
-    import MySQLdb
+    mysql_username = argv[1]
+    mysql_password = argv[2]
+    db_name = argv[3]
 
-    # Connect to the MySQL server
-    db = MySQLdb.connect(
-        host="localhost", user=argv[1], passwd=argv[2], db=argv[3], port=3306
+    connect = MySQLdb.connect(
+        host="localhost",
+        user=mysql_username,
+        passwd=mysql_password,
+        database=db_name,
+        port=3006,
     )
 
-    # Create a cursor object to interact with the database
-    cursor = db.cursor()
-
-    # Execute the SQL query to retrieve states
-    cursor.execute(
-        "SELECT * FROM states\
-                    WHERE name LIKE 'N%' COLLATE utf8mb4_bin\
-                    ORDER BY states.id ASC"
-    )
-
-    # Fetch all the rows
-    states = cursor.fetchall()
-
-    # Display the results
-    for state in states:
-        print(state)
-
-    # Close the cursor and connection
+    cursor = connect.cursor()
+    query = "SELECT * FROM states ORDER BY id ASC"
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
     cursor.close()
-    db.close()
+    connect.close()

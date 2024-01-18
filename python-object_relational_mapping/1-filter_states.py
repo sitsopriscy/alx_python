@@ -25,7 +25,7 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Executing the SQL query to fetch states starting with 'N'
-    query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+    query = "SELECT * FROM states WHERE name LIKE 'n%' ORDER BY id ASC"
     cursor.execute(query)
 
     rows = cursor.fetchall()

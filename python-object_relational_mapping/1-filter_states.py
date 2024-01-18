@@ -20,8 +20,8 @@ def filter_states(username, password, database):
     # Create a cursor object to interact with the database
     cursor = db.cursor()
 
-    # Execute the SQL query to fetch states starting with 'N' (case-sensitive)
-    query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+    # Executing the SQL query to fetch states starting with 'n' (case-insensitive)
+    query = "SELECT * FROM states WHERE LOWER(name) LIKE 'n%' ORDER BY id ASC"
     cursor.execute(query)
 
     # Fetch all the rows returned by the query

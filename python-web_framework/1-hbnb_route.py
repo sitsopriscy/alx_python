@@ -9,10 +9,10 @@
 """to import flask"""
 from flask import Flask
 
-"""to create the variable application name"""
+"""creates the variable application name"""
 app = Flask(__name__)
 
-"""a route to display display Hello HBNB!"""
+"""a route to retrieve Hello HBNB!"""
 
 
 @app.route("/", strict_slashes=False)
@@ -20,7 +20,7 @@ def hbnb():
     return "Hello HBNB!"
 
 
-"""a route to display display HBNB!"""
+"""a route to retrieve HBNB!"""
 
 
 @app.route("/hbnb", strict_slashes=False)

@@ -6,7 +6,7 @@
 # You must use the option strict_slashes=False in your route definition"""
 
 
-"""to import flask"""
+"""importing flask"""
 from flask import Flask
 
 """creates the variable application name"""

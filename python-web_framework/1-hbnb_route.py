@@ -12,7 +12,7 @@ from flask import Flask
 """creates the variable application name"""
 app = Flask(__name__)
 
-"""a route to retrieve Hello HBNB!"""
+"""route for retrieving hello HBNB"""
 
 
 @app.route("/", strict_slashes=False)

@@ -9,7 +9,7 @@
 """to import flask"""
 from flask import Flask
 
-
+"""to create the variable application name"""
 app = Flask(__name__)
 
 """a route to display display Hello HBNB! """

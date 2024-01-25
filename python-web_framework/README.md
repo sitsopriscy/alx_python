@@ -1,0 +1,1 @@
+This is directory to complete my 'Python - Object-relational mapping -2' project.

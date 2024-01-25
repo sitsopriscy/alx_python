@@ -8,3 +8,44 @@
 # The default value of text is “is cool”
 # /number/<n>: display “n is a number” only if n is an integer
 # You must use the option strict_slashes=False in your route definition
+
+
+"""to import flask"""
+from flask import Flask
+
+"""creates the variable application name"""
+app = Flask(__name__)
+
+"""route to retrieve hello HBNB"""
+
+
+@app.route("/", strict_slashes=False)
+def hello_hbnb():
+    return "Hello HBNB!"
+
+
+@app.route("/hbnb", strict_slashes=False)
+def hbnb():
+    return "HBNB"
+
+
+@app.route("/c/<text>", strict_slashes=False)
+def c_text(text):
+    return "C " + text.replace("_", " ")
+
+
+@app.route("/python/<text>", strict_slashes=False)
+@app.route("/python/", strict_slashes=False)
+def python_text(text="is cool"):
+    return "Python " + text.replace("_", " ")
+
+
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    return "{} is a number".format(n)
+    if not n:
+        return 404
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

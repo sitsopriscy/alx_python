@@ -16,8 +16,11 @@
 
 
 # @app.route("/", strict_slashes=False)
-# def hello_hbnb():
+# def hbnb():
 #     return "Hello HBNB!"
+
+
+# """a route to retrieve HBNB!"""
 
 
 # @app.route("/hbnb", strict_slashes=False)
@@ -39,11 +42,8 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hbnb():
+def hello_hbnb():
     return "Hello HBNB!"
-
-
-"""a route to retrieve HBNB!"""
 
 
 @app.route("/hbnb", strict_slashes=False)

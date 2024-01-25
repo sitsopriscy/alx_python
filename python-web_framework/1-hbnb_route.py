@@ -11,10 +11,15 @@ from flask import Flask
 
 app = Flask(__name__)
 
+"""a route to display display Hello HBNB! """
+
 
 @app.route("/", strict_slashes=False)
 def hbnb():
     return "Hello HBNB!"
+
+
+"""a route to display display HBNB! """
 
 
 @app.route("/hbnb", strict_slashes=False)

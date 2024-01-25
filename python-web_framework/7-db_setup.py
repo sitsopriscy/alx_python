@@ -18,32 +18,43 @@ if len(sys.argv) != 4:
 db_username = sys.argv[1]
 db_password = sys.argv[2]
 db_name = sys.argv[3]
-db_host = 'localhost'
+db_host = "localhost"
 
 app = Flask(__name__)
 
 ############################# TO DO 1 ############################
-Add your code to connect to the database here
+path = "mysql://{}:{}@localhost/{}".format(sys.argv[1], sys.argv[2], sys.argv[3])
+app.config["SQLALCHEMY_DATABASE_URI"] = path
 ###############################################################
 
 db = SQLAlchemy(app)
 
+
 ############################  TO DO 2 ##############################
-Define your USER Model class here
+class User(db.Model):
+    """creating class User that inherits from Model"""
+
+    id = db.Column(Integer, primary_key=True)
+    name = db.Column(String(128))
+    email = db.Column(String(128), unique=True, nullable=False)
+
+
 #################################################################
+
 
 # Create the database tables
 def create_tables():
     with app.app_context():
         db.create_all()
 
+
 create_tables()  # This calls the function to create tables
 
 
-@app.route('/', strict_slashes=False)
+@app.route("/", strict_slashes=False)
 def index():
     return "Hello, ALX Flask!"
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

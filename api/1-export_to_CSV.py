@@ -25,31 +25,17 @@ def get_user_tasks(user_id):
     return response.json()
 
 
-def display_user_progress(user_data, tasks):
-    print("Employee {} is done with tasks".format(user_data.get("name")), end="")
-    completed_tasks = [task for task in tasks if task.get("completed")]
-    print("({}/{}):".format(len(completed_tasks), len(tasks)))
-
-    for task in completed_tasks:
-        print("\t {}".format(task.get("title")))
-
-
-def export_to_csv(user_id, user_data, tasks):
+def write_to_csv(user_id, username, tasks):
     filename = "{}.csv".format(user_id)
 
-    with open(filename, "w", newline="") as csvfile:
-        fieldnames = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    with open(filename, mode="w", newline="") as employee_file:
+        employee_writer = csv.writer(
+            employee_file, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL
+        )
 
-        writer.writeheader()
         for task in tasks:
-            writer.writerow(
-                {
-                    "USER_ID": user_data.get("id"),
-                    "USERNAME": user_data.get("username"),
-                    "TASK_COMPLETED_STATUS": str(task.get("completed")),
-                    "TASK_TITLE": task.get("title"),
-                }
+            employee_writer.writerow(
+                [user_id, username, task.get("completed"), task.get("title")]
             )
 
 
@@ -61,8 +47,13 @@ if __name__ == "__main__":
     user_id = int(sys.argv[1])
 
     user_data = get_user_data(user_id)
+    username = user_data.get("username")  # Store username
     user_tasks = get_user_tasks(user_id)
 
-    display_user_progress(user_data, user_tasks)
+    # For each task, store relevant data in l_task
+    l_task = []
+    for task in user_tasks:
+        l_task.append([user_id, username, task.get("completed"), task.get("title")])
 
-    export_to_csv(user_id, user_data, user_tasks)
+    # Write data to CSV file
+    write_to_csv(user_id, username, user_tasks)

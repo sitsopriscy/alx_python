@@ -26,21 +26,20 @@ def get_user_tasks(user_id):
 
 
 def export_to_json(user_id, user_data, tasks):
-    data = {str(user_id): []}
-
+    l_task = []
     for task in tasks:
-        data[str(user_id)].append(
-            {
-                "task": task.get("title"),
-                "completed": task.get("completed"),
-                "username": user_data.get("username"),
-            }
-        )
+        dict_task = {
+            "task": task.get("title"),
+            "completed": task.get("completed"),
+            "username": user_data.get("username"),
+        }
+        l_task.append(dict_task)
 
+    d_task = {str(user_id): l_task}
     filename = "{}.json".format(user_id)
 
     with open(filename, "w") as json_file:
-        json.dump(data, json_file)
+        json.dump(d_task, json_file, indent=2)
 
 
 if __name__ == "__main__":

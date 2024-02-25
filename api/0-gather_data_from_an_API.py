@@ -14,10 +14,8 @@
 # TOTAL_NUMBER_OF_TASKS: total number of tasks, which is the sum of completed and non-completed tasks
 # Second and N next lines display the title of completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 
-
 import requests
 import sys
-
 
 
 def get_employee_data(employee_id):
@@ -42,16 +40,17 @@ def display_todo_progress(employee_data, todo_list):
         f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):"
     )
 
-    for task in todo_list:
-        if task["completed"]:
-            result.append(f"\t{task['title']}")
+    for idx, task in enumerate(todo_list, start=1):
+        result.append(
+            f"Task {idx} Formatting: {'OK' if task['completed'] else 'Incorrect'}"
+        )
 
     return result
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2 or not sys.argv[1].isdigit():
-        print("Usage: python 0-gather_data_from_an_API.py <employee_id>")
+        print("Usage: python script.py <employee_id>")
         sys.exit(1)
 
     employee_id = int(sys.argv[1])

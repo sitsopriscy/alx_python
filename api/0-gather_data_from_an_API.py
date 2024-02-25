@@ -60,5 +60,9 @@ if __name__ == "__main__":
     employee_data, todo_list = get_employee_data(employee_id)
     output = display_todo_progress(employee_data, todo_list)
 
+    # Print the actual output for each task
     for line in output:
         print(line)
+
+    # Print the length of the actual output
+    print(f"\n({len(''.join(output))} chars long)")

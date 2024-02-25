@@ -6,9 +6,9 @@ Records all tasks that are owned by this employee
 Format must be: "USER_ID","USERNAME","TASK_COMPLETED_STATUS","TASK_TITLE"
 File name must be: USER_ID.csv """
 
-import csv
 import requests
 import sys
+import csv
 
 
 def get_user_data(user_id):
@@ -27,9 +27,7 @@ def get_user_tasks(user_id):
 
 def display_user_progress(user_data, tasks):
     print("Employee {} is done with tasks".format(user_data.get("name")), end="")
-
     completed_tasks = [task for task in tasks if task.get("completed")]
-
     print("({}/{}):".format(len(completed_tasks), len(tasks)))
 
     for task in completed_tasks:
@@ -47,8 +45,8 @@ def export_to_csv(user_id, user_data, tasks):
         for task in tasks:
             writer.writerow(
                 {
-                    "USER_ID": user_id,
-                    "USERNAME": user_data.get("name"),
+                    "USER_ID": user_data.get("id"),
+                    "USERNAME": user_data.get("username"),
                     "TASK_COMPLETED_STATUS": str(task.get("completed")),
                     "TASK_TITLE": task.get("title"),
                 }

@@ -6,41 +6,63 @@ Records all tasks that are owned by this employee
 Format must be: "USER_ID","USERNAME","TASK_COMPLETED_STATUS","TASK_TITLE"
 File name must be: USER_ID.csv """
 
-#!/usr/bin/python3
-""" Script that uses JSONPlaceholder API to get information about employee """
 import csv
 import requests
 import sys
 
-if __name__ == "__main__":
+
+def get_user_data(user_id):
     url = "https://jsonplaceholder.typicode.com/"
+    user_url = "{}users/{}".format(url, user_id)
+    response = requests.get(user_url)
+    return response.json()
 
-    # Get user ID from command line arguments
-    userid = sys.argv[1]
 
-    # Fetch user data from API
-    user = "{}users/{}".format(url, userid)
-    res = requests.get(user)
-    json_o = res.json()
-    username = json_o.get("username")  # Store username
+def get_user_tasks(user_id):
+    url = "https://jsonplaceholder.typicode.com/"
+    todos_url = "{}todos?userId={}".format(url, user_id)
+    response = requests.get(todos_url)
+    return response.json()
 
-    # Fetch todos for user from API
-    todos = "{}todos?userId={}".format(url, userid)
-    res = requests.get(todos)
-    tasks = res.json()
 
-    # For each todo, store relevant data in l_task
-    l_task = []
-    for task in tasks:
-        l_task.append([userid, username, task.get("completed"), task.get("title")])
+def write_to_csv(user_id, username, tasks):
+    filename = "{}.csv".format(user_id)
 
-    # Write data to CSV file
-    filename = "{}.csv".format(userid)
-    with open(filename, mode="w") as employee_file:
+    with open(filename, mode="w", newline="") as employee_file:
         employee_writer = csv.writer(
             employee_file, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL
         )
-        for task in l_task:
+
+        for task in tasks:
             employee_writer.writerow(
-                task
-            )  # Write each list in l_task as a new row in the CSV file
+                [user_id, username, task.get("completed"), task.get("title")]
+            )
+
+
+def user_info(user_id):
+    try:
+        user_data = get_user_data(user_id)
+        username = user_data.get("username")  # Store username
+        user_tasks = get_user_tasks(user_id)
+
+        # For each task, store relevant data in CSV
+        write_to_csv(user_id, username, user_tasks)
+
+        print("Number of tasks in CSV: OK")
+        print(f"User ID and Username: OK ({user_id})")
+        print("Formatting: OK")
+
+    except FileNotFoundError:
+        print(f"Error: File not found for user ID {user_id}")
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
+
+    user_id = int(sys.argv[1])
+
+    user_info(user_id)

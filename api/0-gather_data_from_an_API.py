@@ -14,41 +14,29 @@
 # TOTAL_NUMBER_OF_TASKS: total number of tasks, which is the sum of completed and non-completed tasks
 # Second and N next lines display the title of completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 
+#!/usr/bin/python3
+""" Script that uses JSONPlaceholder API to get information about employee """
 import requests
 import sys
 
-def get_employee_data(employee_id):
-    employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    employee_response = requests.get(employee_url)
-    employee_data = employee_response.json()
-
-    todo_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    todo_response = requests.get(todo_url)
-    todo_list = todo_response.json()
-
-    return employee_data, todo_list
-
-def display_todo_progress(employee_data, todo_list):
-    employee_name = employee_data["name"]
-    total_tasks = len(todo_list)
-    completed_tasks = sum(1 for task in todo_list if task["completed"])
-
-    result = []
-    result.append(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
-
-    for idx, task in enumerate(todo_list, start=1):
-        result.append(f"\t{task['title']}")
-
-    return "\n".join(result)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
-        print("Usage: python script.py <employee_id>")
-        sys.exit(1)
+    url = 'https://jsonplaceholder.typicode.com/'
 
-    employee_id = int(sys.argv[1])
-    employee_data, todo_list = get_employee_data(employee_id)
-    output = display_todo_progress(employee_data, todo_list)
+    user = '{}users/{}'.format(url, sys.argv[1])
+    res = requests.get(user)
+    json_o = res.json()
+    print("Employee {} is done with tasks".format(json_o.get('name')), end="")
 
-    print(output)
+    todos = '{}todos?userId={}'.format(url, sys.argv[1])
+    res = requests.get(todos)
+    tasks = res.json()
+    l_task = []
+    for task in tasks:
+        if task.get('completed') is True:
+            l_task.append(task)
+
+    print("({}/{}):".format(len(l_task), len(tasks)))
+    for task in l_task:
+        print("\t {}".format(task.get("title")))
 

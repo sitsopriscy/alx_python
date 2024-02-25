@@ -27,7 +27,9 @@ def get_user_tasks(user_id):
 
 def display_user_progress(user_data, tasks):
     print("Employee {} is done with tasks".format(user_data.get("name")), end="")
+
     completed_tasks = [task for task in tasks if task.get("completed")]
+
     print("({}/{}):".format(len(completed_tasks), len(tasks)))
 
     for task in completed_tasks:
@@ -39,18 +41,35 @@ def export_to_csv(user_id, user_data, tasks):
 
     with open(filename, "w", newline="") as csvfile:
         fieldnames = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"]
-        writer = csv.writer(csvfile)
-        writer.writerow(fieldnames)
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
+        writer.writeheader()
         for task in tasks:
             writer.writerow(
-                [
-                    user_data.get("id"),
-                    user_data.get("username"),
-                    str(task.get("completed")),
-                    task.get("title"),
-                ]
+                {
+                    "USER_ID": user_data.get("id"),
+                    "USERNAME": user_data.get("username"),
+                    "TASK_COMPLETED_STATUS": str(task.get("completed")),
+                    "TASK_TITLE": task.get("title"),
+                }
             )
+
+
+def record_and_export(user_id):
+    user_data = get_user_data(user_id)
+    if not user_data:
+        print(f"Error: User not found for ID {user_id}")
+        sys.exit(1)
+
+    user_tasks = get_user_tasks(user_id)
+
+    display_user_progress(user_data, user_tasks)
+
+    try:
+        export_to_csv(user_id, user_data, user_tasks)
+        print("Export to CSV: Success")
+    except Exception as e:
+        print(f"Export to CSV: Error - {e}")
 
 
 if __name__ == "__main__":
@@ -59,11 +78,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     user_id = int(sys.argv[1])
-
-    user_data = get_user_data(user_id)
-    user_tasks = get_user_tasks(user_id)
-
-    display_user_progress(user_data, user_tasks)
-
-    export_to_csv(user_id, user_data, user_tasks)
-    print("CSV export completed.")
+    record_and_export(user_id)

@@ -15,15 +15,17 @@
 # Second and N next lines display the title of completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 
 
-import sys
 import requests
+import sys
 
 
 def get_employee_data(employee_id):
+    # Get employee details
     employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     employee_response = requests.get(employee_url)
     employee_data = employee_response.json()
 
+    # Get employee's TODO list
     todo_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
     todo_response = requests.get(todo_url)
     todo_list = todo_response.json()
@@ -41,9 +43,10 @@ def display_todo_progress(employee_data, todo_list):
         f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):"
     )
 
-    for task in todo_list:
-        if task["completed"]:
-            result.append(f"\t{task['title']}")
+    for idx, task in enumerate(todo_list, start=1):
+        result.append(
+            f"Task {idx} Formatting: {'OK' if task['completed'] else 'Incorrect'}"
+        )
 
     return result
 

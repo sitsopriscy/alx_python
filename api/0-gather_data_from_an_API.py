@@ -17,7 +17,6 @@
 import requests
 import sys
 
-
 def get_employee_data(employee_id):
     employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     employee_response = requests.get(employee_url)
@@ -29,24 +28,18 @@ def get_employee_data(employee_id):
 
     return employee_data, todo_list
 
-
 def display_todo_progress(employee_data, todo_list):
     employee_name = employee_data["name"]
     total_tasks = len(todo_list)
     completed_tasks = sum(1 for task in todo_list if task["completed"])
 
     result = []
-    result.append(
-        f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):"
-    )
+    result.append(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
 
     for idx, task in enumerate(todo_list, start=1):
-        result.append(
-            f"Task {idx} Formatting: {'OK' if task['completed'] else 'Incorrect'}"
-        )
+        result.append(f"\t{task['title']}")
 
-    return result
-
+    return "\n".join(result)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2 or not sys.argv[1].isdigit():
@@ -57,5 +50,5 @@ if __name__ == "__main__":
     employee_data, todo_list = get_employee_data(employee_id)
     output = display_todo_progress(employee_data, todo_list)
 
-    for line in output:
-        print(line)
+    print(output)
+

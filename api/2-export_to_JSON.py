@@ -6,7 +6,6 @@ Records all tasks from all employees
 Format must be: { "USER_ID": [ {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, ... ], "USER_ID": [ {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, ... ]}
 File name must be: todo_all_employees.json """
 
-
 import json
 import requests
 import sys
@@ -27,21 +26,21 @@ def get_user_tasks(user_id):
 
 
 def export_to_json(user_id, user_data, tasks):
-    filename = "{}.json".format(user_id)
+    data = {str(user_id): []}
 
-    data_to_export = {
-        str(user_id): [
+    for task in tasks:
+        data[str(user_id)].append(
             {
                 "task": task.get("title"),
                 "completed": task.get("completed"),
                 "username": user_data.get("username"),
             }
-            for task in tasks
-        ]
-    }
+        )
+
+    filename = "{}.json".format(user_id)
 
     with open(filename, "w") as json_file:
-        json.dump(data_to_export, json_file, indent=4)
+        json.dump(data, json_file)
 
 
 if __name__ == "__main__":
@@ -55,5 +54,3 @@ if __name__ == "__main__":
     user_tasks = get_user_tasks(user_id)
 
     export_to_json(user_id, user_data, user_tasks)
-    print(f"Data exported to {user_id}.json successfully.")
-    

@@ -19,13 +19,12 @@ import requests
 import sys
 
 
+
 def get_employee_data(employee_id):
-    # Get employee details
     employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     employee_response = requests.get(employee_url)
     employee_data = employee_response.json()
 
-    # Get employee's TODO list
     todo_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
     todo_response = requests.get(todo_url)
     todo_list = todo_response.json()
@@ -43,27 +42,21 @@ def display_todo_progress(employee_data, todo_list):
         f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):"
     )
 
-    for idx in range(1, total_tasks + 1):
-        task = next((task for task in todo_list if task["id"] == idx), None)
-        result.append(
-            f"Task {idx} Formatting: {'OK' if task and task['completed'] else 'Incorrect'}"
-        )
+    for task in todo_list:
+        if task["completed"]:
+            result.append(f"\t{task['title']}")
 
     return result
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2 or not sys.argv[1].isdigit():
-        print("Usage: python script.py <employee_id>")
+        print("Usage: python 0-gather_data_from_an_API.py <employee_id>")
         sys.exit(1)
 
     employee_id = int(sys.argv[1])
     employee_data, todo_list = get_employee_data(employee_id)
     output = display_todo_progress(employee_data, todo_list)
 
-    # Print the actual output for each task
     for line in output:
         print(line)
-
-    # Print the length of the actual output
-    print(f"\n({len(''.join(output))} chars long)")

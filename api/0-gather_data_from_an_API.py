@@ -14,29 +14,43 @@
 # TOTAL_NUMBER_OF_TASKS: total number of tasks, which is the sum of completed and non-completed tasks
 # Second and N next lines display the title of completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 
-#!/usr/bin/python3
-""" Script that uses JSONPlaceholder API to get information about employee """
 import requests
 import sys
 
 
-if __name__ == "__main__":
-    url = 'https://jsonplaceholder.typicode.com/'
+def get_user_data(user_id):
+    url = "https://jsonplaceholder.typicode.com/"
+    user_url = "{}users/{}".format(url, user_id)
+    response = requests.get(user_url)
+    return response.json()
 
-    user = '{}users/{}'.format(url, sys.argv[1])
-    res = requests.get(user)
-    json_o = res.json()
-    print("Employee {} is done with tasks".format(json_o.get('name')), end="")
 
-    todos = '{}todos?userId={}'.format(url, sys.argv[1])
-    res = requests.get(todos)
-    tasks = res.json()
-    l_task = []
-    for task in tasks:
-        if task.get('completed') is True:
-            l_task.append(task)
+def get_user_tasks(user_id):
+    url = "https://jsonplaceholder.typicode.com/"
+    todos_url = "{}todos?userId={}".format(url, user_id)
+    response = requests.get(todos_url)
+    return response.json()
 
-    print("({}/{}):".format(len(l_task), len(tasks)))
-    for task in l_task:
+
+def display_user_progress(user_data, tasks):
+    print("Employee {} is done with tasks".format(user_data.get("name")), end="")
+
+    completed_tasks = [task for task in tasks if task.get("completed")]
+
+    print("({}/{}):".format(len(completed_tasks), len(tasks)))
+
+    for task in completed_tasks:
         print("\t {}".format(task.get("title")))
 
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
+
+    user_id = int(sys.argv[1])
+
+    user_data = get_user_data(user_id)
+    user_tasks = get_user_tasks(user_id)
+
+    display_user_progress(user_data, user_tasks)

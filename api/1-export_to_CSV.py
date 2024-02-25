@@ -6,9 +6,9 @@ Records all tasks that are owned by this employee
 Format must be: "USER_ID","USERNAME","TASK_COMPLETED_STATUS","TASK_TITLE"
 File name must be: USER_ID.csv """
 
+import csv
 import requests
 import sys
-import csv
 
 
 def get_user_data(user_id):

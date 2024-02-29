@@ -35,6 +35,8 @@ def display_user_progress(user_data, tasks):
     for task in completed_tasks:
         print("\t {}".format(task.get("title")))
 
+    return len(tasks), user_data.get("id"), user_data.get("username")  # Return number of tasks, user ID, and username
+
 
 def export_to_csv(user_id, user_data, tasks):
     filename = "{}.csv".format(user_id)
@@ -54,6 +56,8 @@ def export_to_csv(user_id, user_data, tasks):
                 }
             )
 
+    return len(tasks)  # Return the number of tasks
+
 
 def record_and_export(user_id):
     user_data = get_user_data(user_id)
@@ -63,7 +67,10 @@ def record_and_export(user_id):
 
     user_tasks = get_user_tasks(user_id)
 
-    display_user_progress(user_data, user_tasks)
+    num_tasks, user_id_result, username_result = display_user_progress(user_data, user_tasks)
+
+    print(f"Number of tasks in CSV: {num_tasks}")
+    print(f"User ID: {user_id_result} / Username: {username_result}")
 
     try:
         export_to_csv(user_id, user_data, user_tasks)

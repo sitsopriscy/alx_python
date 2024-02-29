@@ -1,35 +1,56 @@
+# Write a Python script that, using this REST API, for a given employee ID, returns information about his/her TODO list progress.
+
+# NB: The endpoint for access specific TODO items for an employee with ID = 1 will be https://jsonplaceholder.typicode.com/users/1/todos and the endpoint to get specific employee details will be https://jsonplaceholder.typicode.com/users/1
+
+# Requirements:
+
+# You must use urllib or requests module
+# The script must accept an integer as a parameter, which is the employee ID
+# The script must display on the standard output the employee TODO list progress in this exact format:
+# First line: Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):
+# where:
+# EMPLOYEE_NAME: name of the employee
+# NUMBER_OF_DONE_TASKS: number of completed tasks
+# TOTAL_NUMBER_OF_TASKS: total number of tasks, which is the sum of completed and non-completed tasks
+# Second and N next lines display the title of completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
+
 import requests
 import sys
 
-"""
-The script accepts an integer as a parameter, 
-which is the employee ID. It then retrieves the name of the employee from the endpoint
-"""
-if len(sys.argv) != 2:
-    print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
-    sys.exit(1)
 
-"""
-It calculates the number of completed tasks and total tasks and prints them in the required format. 
-Finally, it prints the title of completed tasks.
-"""
-employee_id = sys.argv[1]
-url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-response = requests.get(url)
-employee_name = response.json().get("name")
+def get_user_data(user_id):
+    url = "https://jsonplaceholder.typicode.com/"
+    user_url = "{}users/{}".format(url, user_id)
+    response = requests.get(user_url)
+    return response.json()
 
-if not employee_name:
-    print(f"No employee found with ID {employee_id}")
-    sys.exit(1)
 
-url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-response = requests.get(url)
-todos = response.json()
+def get_user_tasks(user_id):
+    url = "https://jsonplaceholder.typicode.com/"
+    todos_url = "{}todos?userId={}".format(url, user_id)
+    response = requests.get(todos_url)
+    return response.json()
 
-total_tasks = len(todos)
-done_tasks = sum(1 for todo in todos if todo.get("completed"))
 
-print(f"Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):")
-for todo in todos:
-    if todo.get("completed"):
-        print(f"\t {todo.get('title')}")
+def display_user_progress(user_data, tasks):
+    print("Employee {} is done with tasks".format(user_data.get("name")), end="")
+
+    completed_tasks = [task for task in tasks if task.get("completed")]
+
+    print("({}/{}):".format(len(completed_tasks), len(tasks)))
+
+    for task in completed_tasks:
+        print("\t {}".format(task.get("title")))
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
+
+    user_id = int(sys.argv[1])
+
+    user_data = get_user_data(user_id)
+    user_tasks = get_user_tasks(user_id)
+
+    display_user_progress(user_data, user_tasks)

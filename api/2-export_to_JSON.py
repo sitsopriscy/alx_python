@@ -1,55 +1,43 @@
-""" Using what you did in the task #0, extend your Python script to export data in the JSON format.
-
-Requirements:
-
-Records all tasks from all employees
-Format must be: { "USER_ID": [ {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, ... ], "USER_ID": [ {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS}, ... ]}
-File name must be: todo_all_employees.json """
+"""import json, requests, sys"""
 
 import json
 import requests
 import sys
 
-
-def get_user_data(user_id):
-    url = "https://jsonplaceholder.typicode.com/"
-    user_url = "{}users/{}".format(url, user_id)
-    response = requests.get(user_url)
-    return response.json()
+"""import json, requests, sys"""
 
 
-def get_user_tasks(user_id):
-    url = "https://jsonplaceholder.typicode.com/"
-    todos_url = "{}todos?userId={}".format(url, user_id)
-    response = requests.get(todos_url)
-    return response.json()
+def getData(id):
+    """
+    Get data from json api and export to json file
+    """
+    usersurl = "https://jsonplaceholder.typicode.com/users/{}".format(id)
+    todourl = "{}/todos".format(usersurl)
 
+    request1 = requests.get(usersurl)
+    results = request1.json()
+    userid = results["id"]
+    username = results["username"]
 
-def export_to_json(user_id, user_data, tasks):
-    l_task = []
-    for task in tasks:
-        dict_task = {
-            "task": task.get("title"),
-            "completed": task.get("completed"),
-            "username": user_data.get("username"),
-        }
-        l_task.append(dict_task)
+    request2 = requests.get(todourl)
+    tasks = request2.json()
 
-    d_task = {str(user_id): l_task}
-    filename = "{}.json".format(user_id)
+    alldata = {}
 
-    with open(filename, "w") as json_file:
-        json.dump(d_task, json_file, indent=2)
+    jsondata = [
+        {"task": task["title"], "completed": task["completed"], "username": username}
+        for task in tasks
+    ]
+
+    alldata[str(userid)] = jsondata
+
+    with open("{}.json".format(userid), "w") as jsonfile:
+        json.dump(alldata, jsonfile)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
-        print("Usage: 2-export_to_JSON.py <employee_id>")
-        sys.exit(1)
-
-    user_id = int(sys.argv[1])
-
-    user_data = get_user_data(user_id)
-    user_tasks = get_user_tasks(user_id)
-
-    export_to_json(user_id, user_data, user_tasks)
+    if len(sys.argv) > 1:
+        id = sys.argv[1]
+    else:
+        id = 1
+    getData(int(id))
